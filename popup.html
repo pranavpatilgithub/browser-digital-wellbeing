@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Website Time Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      width: 350px;
+      padding: 15px;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .total-time {
+      font-size: 13px;
+      color: #555;
+      margin-top: 3px;
+      font-family: monospace;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .period-selector {
+      display: flex;
+      gap: 5px;
+      background-color: #eaeaea;
+      border-radius: 20px;
+      padding: 3px;
+    }
+
+    .period-btn {
+      border: none;
+      background: none;
+      padding: 5px 10px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .period-btn.active {
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .site-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .site-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 8px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .site-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .day-selector {
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+    }
+
+    .day-selector-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .day-buttons {
+      display: flex;
+      overflow-x: auto;
+      gap: 5px;
+      padding-bottom: 5px;
+    }
+
+    .day-btn {
+      border: 1px solid #ddd;
+      background: white;
+      padding: 5px 8px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 12px;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .day-btn.active {
+      background-color: #e0e0e0;
+      border-color: #aaa;
+    }
+
+    .view-mode {
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+      gap: 5px;
+    }
+
+    .view-btn {
+      border: none;
+      background: none;
+      padding: 5px 10px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .view-btn.active {
+      background-color: #ddd;
+      font-weight: bold;
+    }
+
+    .favicon {
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+    }
+
+    .site-info {
+      flex-grow: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .site-name {
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+    }
+
+    .site-time {
+      font-family: monospace;
+      color: #555;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 30px;
+      color: #888;
+    }
+
+    .footer {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="header-left">
+      <h1>Website Time Tracker</h1>
+      <div class="total-time" id="totalTime">Total: 00:00:00</div>
+    </div>
+    <div class="period-selector">
+      <button class="period-btn active" data-period="today">Today</button>
+      <button class="period-btn" data-period="yesterday">Yesterday</button>
+      <button class="period-btn" data-period="week">Week</button>
+    </div>
+  </div>
+
+  <!-- Day selector should be placed here, outside the header div -->
+  <div class="day-selector" id="daySelector" style="display: none;">
+    <div class="day-selector-label">Select day:</div>
+    <div class="day-buttons" id="dayButtons">
+      <!-- Day buttons will be added dynamically -->
+    </div>
+    <div class="view-mode">
+      <button class="view-btn active" data-view="week">Week Total</button>
+      <button class="view-btn" data-view="day">Day View</button>
+    </div>
+  </div>
+
+  <div class="site-list" id="siteList">
+    <!-- Site items will be dynamically added here -->
+  </div>
+
+  <div class="footer">
+    <p>Track your browsing habits responsibly</p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
